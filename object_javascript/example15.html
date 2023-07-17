@@ -1,0 +1,109 @@
+<!-- 17-07-2023 Assignment -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Filter Names by Age</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body clas="body ">
+    <div class="container">
+      <table class="table">
+        <thead class="thead">
+          <tr class="tr bg-primary">
+            <th>Name</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+      <div class="btn-group mt-7">
+        <button
+          type="button"
+          class="btn btn-danger"
+          onclick="filterNamesByAge('lessThan20')"
+        >
+          Age &lt; 20
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="filterNamesByAge('between21And25')"
+        >
+          Age 21-25
+        </button>
+        <button
+          type="button"
+          class="btn btn-warning"
+          onclick="filterNamesByAge('greaterThan25')"
+        >
+          Age &gt; 25
+        </button>
+      </div>
+    </div>
+
+    <script>
+      var people = [
+        { name: "Vaibhaw", age: 18 },
+        { name: "Arun", age: 22 },
+        { name: "Satyam", age: 24 },
+        { name: "Abhisek", age: 26 },
+        { name: "Sachin", age: 28 },
+      ];
+
+      function filterNamesByAge(filter) {
+        var filteredPeople = [];
+
+        switch (filter) {
+          case "lessThan20":
+            filteredPeople = people.filter((person) => person.age < 20);
+            break;
+          case "between21And25":
+            filteredPeople = people.filter(
+              (person) => person.age >= 21 && person.age <= 25
+            );
+            break;
+          case "greaterThan25":
+            filteredPeople = people.filter((person) => person.age > 25);
+            break;
+          default:
+            filteredPeople = people;
+            break;
+        }
+
+        renderTable(filteredPeople);
+      }
+
+      function renderTable(filteredPeople) {
+        var tableBody = document.getElementById("table-body");
+        tableBody.innerHTML = "";
+
+        filteredPeople.forEach(function (person) {
+          var row = document.createElement("tr");
+          var nameCell = document.createElement("td");
+          var ageCell = document.createElement("td");
+
+          nameCell.textContent = person.name;
+          ageCell.textContent = person.age;
+
+          row.appendChild(nameCell);
+          row.appendChild(ageCell);
+          tableBody.appendChild(row);
+        });
+      }
+
+      // Initial rendering of the table with all names
+      renderTable(people);
+    </script>
+  </body>
+</html>
